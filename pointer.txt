@@ -1,0 +1,171 @@
+1. What is a pointer in C programming, and how does it differ from a regular variable?
+
+In C programming, a pointer is a variable that stores the memory address of another variable. It essentially "points to" the location in memory where a value is stored. 
+Pointers are powerful and versatile in C, as they allow for dynamic memory allocation and manipulation.
+
+Memory address
+Declaration    //int *ptr;
+Initialization   // *ptr = &x;
+changing value    //*ptr = 12;
+
+2. Declare a pointer. 
+
+#include <stdio.h>    
+
+int main() {
+    int x = 10; 
+    int *ptr;   
+
+    ptr = &x;   
+    printf("Value of x: %d\n", x);
+    printf("Value pointed to by ptr: %d\n", *ptr);
+
+    return 0;
+}
+
+
+3. Explain the concept of pointer arithmetic. How is it used in C?
+
+Increment & Decrement
+int numbers[] = {1, 2, 3, 4, 5};
+int *ptr = numbers;
+
+printf("%d\n", *ptr);  // prints the value at the current location
+ptr++;                 // move to the next location
+printf("%d\n", *ptr);  // prints the value at the new location
+
+
+Arithmetic Operations
+int numbers[] = {1, 2, 3, 4, 5};
+int *ptr = numbers;
+
+printf("%d\n", *(ptr + 2));  // prints the value at ptr + 2 * sizeof(int)
+
+
+Array Access
+int numbers[] = {1, 2, 3, 4, 5};
+int *ptr = numbers;
+
+printf("%d\n", ptr[2]);  // prints the value at the third element of the array
+
+4. The dereference operator * in C is used to access the value stored at the memory 
+address pointed to by a pointer. 
+
+5. How does a pointer differ from an array in C? Can you provide an example to illustrate 
+the difference?
+
+
+#include <stdio.h>
+
+int main() {
+    // Array
+    int arr[3] = {1, 2, 3};
+
+    
+    int x = 5;
+    int *ptr = &x;
+
+    
+    printf("Array element 2: %d\n", arr[1]); // Accessing array element directly
+    printf("Pointer value: %d\n", *ptr);    // Dereferencing the pointer to access the value
+
+    
+    printf("Size of array: %lu bytes\n", sizeof(arr)); // Size of the whole array
+    printf("Size of pointer: %lu bytes\n", sizeof(ptr)); // Size of the pointer variable
+
+    int *dynamicArr = (int *)malloc(3 * sizeof(int));
+    dynamicArr[0] = 10;
+    dynamicArr[1] = 20;
+    dynamicArr[2] = 30;
+
+    printf("Dynamic array element 1: %d\n", dynamicArr[0]);
+    
+    // Freeing dynamically allocated memory
+    free(dynamicArr);
+
+    return 0;
+}
+
+
+6. What is the significance of NULL pointers in C? How are they used in practice?
+
+In C, a NULL pointer is a pointer that does not point to any memory location. 
+It is a special value often used to indicate that the pointer is intentionally unassigned or invalid.
+
+int *ptr = NULL;
+
+
+7. Explain the differences between pass by value and pass by reference in C, emphasizing 
+    the role of pointers.
+ 
+ Pass by value
+ a. Copy of data:  Actual value of the argument is passd into the function.
+ changes doesn't effect the actual value.
+
+ b. Memory: Small sized data types well suited.
+
+ c. Code:   
+    void increment(int x) {
+        x++;
+    }
+
+    int main() {
+        int num = 5;
+        increment(num);
+        // The value of 'num' remains unchanged (5) after the function call.
+        return 0;
+    }
+
+Pass by reference
+a. Copy of data:  Address of the argument is passd into the function.
+ changes doesn't effect the actual value.
+
+b. Memory: Small sized data types well suited.
+
+c. Code:
+    void incrementByReference(int *x) {
+    (*x)++;
+    }
+
+    int main() {
+        int num = 5;
+        incrementByReference(&num);
+        // The value of 'num' is changed to 6 after the function call.
+        return 0;
+    }
+
+8. How does dynamic memory allocation work in C, and how are pointers involved in 
+memory management?
+
+a. malloc:  int *dynamicArray = (int *)malloc(5 * sizeof(int));
+b. calloc: int *initializedArray = (int *)calloc(5, sizeof(int));        //Initialises the allocated memory to zero
+c. realloc: int *resizedArray = (int *)realloc(initializedArray, 10 * sizeof(int));
+        //used to resize a previously allocated block of memory
+
+d. free: free(dynamicArray);
+
+
+9. Discuss the concept of a double pointer in C. Provide an example of its usage
+
+Double pointers means the pointer that points to another pointer.Generally used with 2D array.
+
+#include<stdio.h>  
+void main ()  
+{  
+    int a = 10;  
+    int *p;  
+    int **pp;   
+    p = &a; // pointer p is pointing to the address of a  
+    pp = &p; // pointer pp is a double pointer pointing to the address of pointer p  
+    printf("address of a: %x\n",p); // Address of a will be printed   
+    printf("address of p: %x\n",pp); // Address of p will be printed  
+    
+}  
+
+
+10. What are the potential risks and common errors associated with using pointers in C? 
+How can they be avoided or mitigated? 
+
+Dangling  pointers
+Memory Sizes
+wild pointers
